@@ -15,7 +15,7 @@ function App() {
           borderBottom: "solid 1px",
           paddingBottom: "1rem"
         }}>
-          <Link to="/invoices">Invoices</Link> |{" "}
+          <Link to="/outings">Outings</Link> |{" "}
           <Link to="/expenses">Expenses</Link>
         </nav>
         <Outlet />
