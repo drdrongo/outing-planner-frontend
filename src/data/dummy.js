@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.getInvoice = exports.getInvoices = void 0;
+exports.deleteInvoice = exports.getInvoice = exports.getInvoices = void 0;
 var invoices = [
     {
         name: 'Santa Monica',
@@ -41,3 +41,7 @@ function getInvoice(number) {
     return invoices.find(function (invoice) { return invoice.number === number; });
 }
 exports.getInvoice = getInvoice;
+function deleteInvoice(number) {
+    invoices = invoices.filter(function (invoice) { return invoice.number !== number; });
+}
+exports.deleteInvoice = deleteInvoice;

@@ -1,5 +1,5 @@
-import { useParams } from "react-router-dom";
-import { getInvoice } from "../data/dummy";
+import { useParams, useNavigate } from "react-router-dom";
+import { getInvoice, deleteInvoice } from "../data/dummy";
 
 interface Invoice {
   name: string;
@@ -9,6 +9,7 @@ interface Invoice {
 }
 
 export default function Invoice() {
+  let navigate = useNavigate();
   let params: any = useParams();
   let invoice: Invoice | undefined = getInvoice(parseInt(params.invoiceId, 10));
 
@@ -27,6 +28,20 @@ export default function Invoice() {
         {invoice.name}: {invoice.number}
       </p>
       <p>Due Date: {invoice.due}</p>
+      <p>
+        <button
+          onClick={() => {
+            if (!invoice) return;
+
+            console.log({deleteInvoice})
+            console.log({invoice})
+            deleteInvoice(invoice.number);
+            navigate("/invoices");
+          }}
+        >
+          Delete
+        </button>
+      </p>
     </main>
   );
 }
