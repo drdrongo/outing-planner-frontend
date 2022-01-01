@@ -1,44 +1,78 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link } from 'react-router-dom';
 
-import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
-import ThreeDRotation from '@mui/icons-material/ThreeDRotation';
+// import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+// import ThreeDRotation from '@mui/icons-material/ThreeDRotation';
 
+import { ThemeContext } from './contexts/ThemeContext';
+import { fetchOutings } from './data/outings';
+import { OutingsContext } from './contexts/OutingsContext';
+
+interface Outing {
+	id: number;
+	title: string;
+	description: string;
+	price: number;
+	mood: number;
+	category: number;
+	image?: string;
+}
+
+const themes = {
+	dark: {
+		foreground: '#FFFFFF',
+		background: '#000000',
+	},
+	light: {
+		foreground: '#000000',
+		background: '#FFFFFF',
+	},
+};
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <nav style={{
-          borderBottom: "solid 1px",
-          paddingBottom: "1rem"
-        }}>
-          <Link to="/outings">Outings</Link> |{" "}
-          <Link to="/expenses">Expenses</Link>
-        </nav>
-        <Outlet />
+	const [theme, setTheme] = useState(themes.light);
+	const toggleTheme: React.MouseEventHandler<HTMLButtonElement> = () => {
+		setTheme(theme === themes.dark ? themes.light : themes.dark);
+	};
 
+	const [outings, setOutings] = useState<Array<Outing>>([]);
 
+	function getOuting(id: number): Outing | undefined {
+		return outings.find(outings => outings.id === id);
+	}
 
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <AccessAlarmIcon/>
-        <ThreeDRotation/>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn Resact
-        </a>
-      </header>
-    </div>
-  );
+	useEffect(() => {
+		fetchOutings().then((response: Outing[]) => setOutings(response));
+	}, []);
+
+	return (
+		<ThemeContext.Provider value={{ theme, toggleTheme }}>
+			<OutingsContext.Provider value={{ outings, getOuting }}>
+				<div className="App">
+					<header className="App-header">
+						<nav
+							style={{
+								borderBottom: 'solid 1px',
+								paddingBottom: '1rem',
+							}}
+						>
+							<Link to="/outings">Outings</Link> |{' '}
+							<Link to="/expenses">Expenses</Link>
+						</nav>
+
+						{/* <img src={logo} className="App-logo" alt="logo" />
+          <p>
+            Edit <code>src/App.tsx</code> and save to reload.
+          </p> */}
+						{/* <AccessAlarmIcon/>
+          <ThreeDRotation/> */}
+					</header>
+					<Outlet />
+				</div>
+			</OutingsContext.Provider>
+		</ThemeContext.Provider>
+	);
 }
 
 export default App;

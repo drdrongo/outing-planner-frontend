@@ -1,5 +1,9 @@
 import { NavLink, useLocation, Outlet, useSearchParams } from "react-router-dom";
-import { getOutings } from "../data/dummy_outings";
+// import { getOutings } from "../data/dummy_outings";
+// import { fetchOutings,  } from "../data/outings";
+import { useEffect, useState } from "react";
+import { useThemeContext } from "../contexts/ThemeContext";
+import { useOutingsContext } from "../contexts/OutingsContext";
 
 function QueryNavLink({ to='', ...props }) {
   const location = useLocation();
@@ -19,9 +23,16 @@ interface Outing {
 export default function Outings() {
   let [searchParams, setSearchParams] = useSearchParams(); // works like setState, but stores data in the search params instead
 
-  let outings: Outing[] = getOutings();
+  const {
+    outings, getOuting
+  } = useOutingsContext();
+  // const [outings: Outing[], setOutings] = useState([]);
+
+  const { theme, toggleTheme } = useThemeContext();
+
   return (
-    <div style={{ display: "flex" }}>
+    <div className="main" style={{ backgroundColor: theme.background, color: theme.foreground }}>
+      {/* <button onClick={toggleTheme}>Change Mode</button> */}
       <nav
         style={{
           borderRight: "solid 1px",
@@ -41,9 +52,10 @@ export default function Outings() {
         />
         {outings
         .filter(outing => {
-          let filter = searchParams.get("filter");
+          const filter = searchParams.get("filter");
           if (!filter) return true;
-          let title = outing.title.toLowerCase();
+
+          const title = outing.title.toLowerCase();
           return title.startsWith(filter.toLowerCase());
         })
         .map(outing => (

@@ -33,8 +33,6 @@ export default function Invoice() {
           onClick={() => {
             if (!invoice) return;
 
-            console.log({deleteInvoice})
-            console.log({invoice})
             deleteInvoice(invoice.number);
             navigate("/invoices");
           }}
