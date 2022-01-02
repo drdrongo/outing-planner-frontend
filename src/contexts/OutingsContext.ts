@@ -1,19 +1,9 @@
 import { createContext, useContext } from "react"
+import { Outing } from '../data/outings';
 
-interface Outing {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  mood: number;
-  category: number;
-  image?: string;
-}
 
 export type GlobalOutings = {
   outings: Outing[];
-  // getOutings: Function;
-  // fetchOutings: Function;
   getOuting: Function;
 }
 
@@ -21,8 +11,6 @@ export type GlobalOutings = {
 
 export const OutingsContext = createContext<GlobalOutings>({
   outings: [], // set a default value
-  // getOutings,
-  // fetchOutings,
   getOuting: () => {},
 })
 

@@ -1,6 +1,6 @@
 // import Outings from "../routes/outings";
 
-interface Outing {
+export interface Outing {
   id: number;
   title: string;
   description: string;
@@ -8,6 +8,10 @@ interface Outing {
   mood: number;
   category: number;
   image?: string;
+  genre: number;
+  is_favorite: Boolean;
+  is_complete: Boolean;
+  rating: number;
 }
 
 export const fetchOutings: Function = async () => {

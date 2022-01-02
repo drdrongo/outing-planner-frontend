@@ -1,23 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import './styles/index.scss'
 import { Outlet, Link } from 'react-router-dom';
 
 // import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 // import ThreeDRotation from '@mui/icons-material/ThreeDRotation';
 
 import { ThemeContext } from './contexts/ThemeContext';
-import { fetchOutings } from './data/outings';
+import { Outing, fetchOutings } from './data/outings';
 import { OutingsContext } from './contexts/OutingsContext';
 
-interface Outing {
-	id: number;
-	title: string;
-	description: string;
-	price: number;
-	mood: number;
-	category: number;
-	image?: string;
-}
 
 const themes = {
 	dark: {
