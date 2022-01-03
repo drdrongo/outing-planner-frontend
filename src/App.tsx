@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './styles/index.scss'
 import { Outlet, Link } from 'react-router-dom';
-
+// import $http from './data/http';
 // import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 // import ThreeDRotation from '@mui/icons-material/ThreeDRotation';
 
-import { ThemeContext } from './contexts/ThemeContext';
-import { Outing, fetchOutings } from './data/outings';
-import { OutingsContext } from './contexts/OutingsContext';
 
+import { ThemeContext } from './contexts/ThemeContext';
+import OutingsProvider from './contexts/OutingsContext';
 
 const themes = {
 	dark: {
@@ -27,19 +26,10 @@ function App() {
 		setTheme(theme === themes.dark ? themes.light : themes.dark);
 	};
 
-	const [outings, setOutings] = useState<Array<Outing>>([]);
-
-	function getOuting(id: number): Outing | undefined {
-		return outings.find(outings => outings.id === id);
-	}
-
-	useEffect(() => {
-		fetchOutings().then((response: Outing[]) => setOutings(response));
-	}, []);
 
 	return (
 		<ThemeContext.Provider value={{ theme, toggleTheme }}>
-			<OutingsContext.Provider value={{ outings, getOuting }}>
+			<OutingsProvider>
 				<div className="App">
 					<header className="App-header">
 						<nav
@@ -61,7 +51,7 @@ function App() {
 					</header>
 					<Outlet />
 				</div>
-			</OutingsContext.Provider>
+			</OutingsProvider>
 		</ThemeContext.Provider>
 	);
 }

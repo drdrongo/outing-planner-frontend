@@ -1,58 +1,90 @@
-import { useContext, useCallback } from 'react';
-import { useParams, useNavigate } from "react-router-dom";
+import { useMemo, useContext, useCallback } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 // import { getOuting, deleteOuting } from "../data/dummy_outings";
 import { OutingsContext } from '../contexts/OutingsContext';
 import Star from '@mui/icons-material/Star';
 import CurrencyYen from '@mui/icons-material/CurrencyYen';
-import { Outing } from '../data/outings'
-import Favorite from '@mui/icons-material/Favorite'
-import FavoriteBorder from '@mui/icons-material/FavoriteBorder'
+import { Outing } from '../data/outings';
+import Favorite from '@mui/icons-material/Favorite';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import $http from '../data/http';
 
 export default function OutingsShow() {
+	const { outings, getOuting, updateOuting } = useContext(OutingsContext);
 
-  const { outings, getOuting } = useContext(OutingsContext);
+	const navigate = useNavigate();
 
-  const navigate = useNavigate();
-  const params: any = useParams();
-  const outing: Outing | undefined = getOuting(parseInt(params.outingId, 10));
+	const params: any = useParams();
+
+	const outing: Outing | undefined = useMemo(() => {
+    return getOuting(parseInt(params.outingId, 10))
+  }, [getOuting, params.outingId]);
+
+	const toggleFavorite = useCallback(async () => {
+    const thisId = parseInt(params.outingId, 10);
+		$http.post('/api/v1/outings/toggle_favorite', { id: thisId });
+    
+    const outing = outings.find(out => out.id === parseInt(params.outingId, 10));
+    if (!outing) {
+      console.error('No existing outing in toggleFavorite');
+      return;
+    }
+
+    updateOuting(thisId, { is_favorite: !outing.is_favorite})
+	}, [updateOuting, params, outings]);
+
+  const FavoriteButton = useMemo(() => {
+    if (!outing) return;
+
+    return (
+      <button
+          onClick={toggleFavorite}
+          style={{ backgroundColor: outing.is_favorite ? 'pink' : 'blue' }}
+        >
+          {outing.is_favorite ? <Favorite /> : <FavoriteBorder />}
+      </button>
+    );
+  }, [toggleFavorite, outing]);
 
 
   if (!outing) {
-    return (
-      <main  className="outing-content" style={{ padding: "1rem" }}>
-        <h2>Nothing here</h2>
-      </main>
-    ) 
-  }
+		return (
+			<main className="outing-content" style={{ padding: '1rem' }}>
+				<h2>Nothing here</h2>
+			</main>
+		);
+	}
 
-  const toggleFavorite = () => {
-    console.log('foo')
-  };
-
-  const { title, mood, price, description, image, genre, is_complete, is_favorite } = outing;
+  const {
+		title,
+		mood,
+		price,
+		description,
+		image,
+	} = outing;
 
   return (
-    <main className="outing-content" style={{ padding: "1rem" }}>
+    <main className="outing-content" style={{ padding: '1rem' }}>
       <h2>{title}</h2>
       <p>Excitement Rating:</p>
-      {[...Array(mood)].map((_star, idx) => <Star key={idx}/>)}
+      {[...Array(mood)].map((_star, idx) => (
+        <Star key={idx} />
+      ))}
 
       <p>Favorite:</p>
-      <button onClick={toggleFavorite} style={{ backgroundColor: 'pink' }}>
-        {is_complete ? <Favorite /> : <FavoriteBorder />}
-      </button>
+      {FavoriteButton}
 
       <p>Price:</p>
-      {[...Array(price)].map((_yen, idx) => <CurrencyYen key={idx}/>)}
+      {[...Array(price)].map((_yen, idx) => (
+        <CurrencyYen key={idx} />
+      ))}
       <p>{description}</p>
-      { image && <img src={image} alt="" /> }
+      {image && <img src={image} alt="" />}
       <p>
         <button
           onClick={() => {
-            if (!outing) return;
-
             // deleteOuting(outing.id);
-            navigate("/outings");
+            navigate('/outings');
           }}
         >
           Delete
@@ -60,4 +92,6 @@ export default function OutingsShow() {
       </p>
     </main>
   );
+
+
 }
