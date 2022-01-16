@@ -1,12 +1,14 @@
 import { useMemo, useContext, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-// import { getOuting, deleteOuting } from "../data/dummy_outings";
 import { OutingsContext } from '../contexts/OutingsContext';
-import Star from '@mui/icons-material/Star';
-import CurrencyYen from '@mui/icons-material/CurrencyYen';
+
+// icons
+import { Star, CurrencyYen, Favorite, FavoriteBorder } from '@mui/icons-material';
+// import Star from '@mui/icons-material/Star';
+// import CurrencyYen from '@mui/icons-material/CurrencyYen';
+// import Favorite from '@mui/icons-material/Favorite';
+// import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import { Outing } from '../data/outings';
-import Favorite from '@mui/icons-material/Favorite';
-import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import $http from '../data/http';
 
 export default function OutingsShow() {
