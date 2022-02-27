@@ -5,7 +5,7 @@ import {
 	useSearchParams,
 } from 'react-router-dom';
 import { useContext } from 'react';
-import { useThemeContext } from '../contexts/ThemeContext';
+// import { useThemeContext } from '../contexts/theme_context';
 import { OutingsContext } from '../contexts/OutingsContext';
 
 function QueryNavLink({ to = '', ...props }) {
@@ -18,15 +18,15 @@ export default function Outings() {
 
 	const { outings } = useContext(OutingsContext);
 
-	const { theme } = useThemeContext();
+	// const { theme } = useThemeContext();
 
 	return (
 		<div
 			className="main"
-			style={{
-				backgroundColor: theme.background,
-				color: theme.foreground,
-			}}
+			// style={{
+			// 	backgroundColor: theme.background,
+			// 	color: theme.foreground,
+			// }}
 		>
 			{/* <button onClick={toggleTheme}>Change Mode</button> */}
 			<nav

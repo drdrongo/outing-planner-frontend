@@ -12,7 +12,11 @@ import Expenses from './routes/expenses';
 import Outings from './routes/outings';
 import OutingsShow from './routes/outing';
 
+import ThemeProvider from './providers/theme_provider';
+
+
 ReactDOM.render(
+  <ThemeProvider>
   <BrowserRouter>
     <Routes>
         <Route path="/" element={<App />}>
@@ -39,7 +43,9 @@ ReactDOM.render(
 
         </Route>
     </Routes>
-  </BrowserRouter>,
+  </BrowserRouter>
+  </ThemeProvider>
+  ,
   document.getElementById('root')
 );
 
