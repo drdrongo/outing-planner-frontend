@@ -7,7 +7,7 @@ interface Themes {
 
 export const themes: Themes = {
 	light: {
-		backgroundColor: '#000000',
+		backgroundColor: '#555577',
 		color: '#EEEEEE',
 	},
 	dark: {

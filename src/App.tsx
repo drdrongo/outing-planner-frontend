@@ -1,12 +1,6 @@
-import './styles/index.scss'
-import React, { useState } from 'react';
-import { Outlet, Link } from 'react-router-dom';
-// import $http from './data/http';
-// import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
-// import ThreeDRotation from '@mui/icons-material/ThreeDRotation';
+import { Outlet } from 'react-router-dom';
 
-
-import OutingsProvider from './contexts/OutingsContext';
+import OutingsProvider from './contexts/outings_context';
 import Header from './components/header';
 
 function App() {

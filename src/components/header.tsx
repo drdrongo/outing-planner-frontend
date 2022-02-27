@@ -1,23 +1,16 @@
-import { Link } from 'react-router-dom';
 import { useThemeContext } from '../contexts/theme_context';
-
+import StyledLink from './styled_link';
 import ThemeButton from './theme_button';
 
 const Header = () => {
-	const { theme } = useThemeContext();
+	const { isLight, theme } = useThemeContext();
 
 	return (
-		<header className="App-header">
-			<nav
-				style={{
-					borderBottom: 'solid 1px',
-					paddingBottom: '1rem',
-          ...theme,
-				}}
-			>
+		<header className="app-header" style={{ ...theme, borderBottomWidth: '1px', borderBottomStyle: 'solid', borderBottomColor: theme.color }}>
+			<nav>
 				<ThemeButton />
-				<Link to="/outings">Outings</Link> |{' '}
-				<Link to="/expenses">Expenses</Link>
+				<StyledLink to="/outings">Outings</StyledLink> |{' '}
+				<StyledLink to="/expenses">Expenses</StyledLink>
 			</nav>
 		</header>
 	);

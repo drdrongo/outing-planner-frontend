@@ -1,6 +1,6 @@
 import { useMemo, useContext, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { OutingsContext } from '../contexts/OutingsContext';
+import { OutingsContext } from '../contexts/outings_context';
 
 // icons
 import { Star, CurrencyYen, Favorite, FavoriteBorder } from '@mui/icons-material';
