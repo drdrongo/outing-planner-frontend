@@ -1,4 +1,4 @@
-// import Outings from "../routes/outings";
+import { getOutings } from './dummy_outings';
 
 export interface Outing {
   id: number;
@@ -15,14 +15,16 @@ export interface Outing {
 }
 
 export const fetchOutings: Function = async () => {
-  const outings: Outing[] = await fetch('http://localhost:3000/api/v1/outings', {
-    headers: {
-      mode: 'cors',
-      "Access-Control-Allow-Origin": "*", 
-      'Content-Type': 'application/json'
-    },
-  }).then(resp => resp.json());
+  return getOutings();
+  
+  // const outings: Outing[] = await fetch('http://localhost:3000/api/v1/outings', {
+  //   headers: {
+  //     mode: 'cors',
+  //     "Access-Control-Allow-Origin": "*", 
+  //     'Content-Type': 'application/json'
+  //   },
+  // }).then(resp => resp.json());
 
-  return outings;
+  // return outings;
 };
 

@@ -13,7 +13,7 @@ interface Outing {
   // isFavorite: boolean;
 }
 
-let outings: Outing[] = [
+export let outings: Outing[] = [
   {
     id: 1,
     title: 'Go to park',
@@ -55,6 +55,8 @@ let outings: Outing[] = [
     category: 5
   },
 ];
+
+
 
 export function getOutings(): Outing[] {
   return outings;
