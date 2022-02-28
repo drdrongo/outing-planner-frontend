@@ -10,7 +10,8 @@ const Header = () => {
 			<nav>
 				<ThemeButton />
 				<StyledLink to="/outings">Outings</StyledLink> |{' '}
-				<StyledLink to="/expenses">Expenses</StyledLink>
+				<StyledLink to="/expenses">Expenses</StyledLink> |{' '}
+				<StyledLink to="/swiper">Swiper</StyledLink>
 			</nav>
 		</header>
 	);

@@ -4,14 +4,19 @@ import {
 } from 'react-router-dom';
 import OutingsList from '../components/outings_list';
 import { useOutingsContext } from '../contexts/outings_context';
+import { useThemeContext } from '../contexts/theme_context';
 
 export default function Outings() {
 	let [searchParams, setSearchParams] = useSearchParams(); // works like setState, but stores data in the search params instead
 
 	const { outings } = useOutingsContext();
+	const { theme, isLight } = useThemeContext();
+	console.log({ theme })
 
 	return (
-		<div className="main">
+		<div className="main" style={{
+			...theme,
+		}}>
 			<nav
 				style={{
 					borderRight: 'solid 1px',

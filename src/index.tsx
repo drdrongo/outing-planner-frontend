@@ -9,6 +9,7 @@ import Outings from './routes/outings';
 import OutingsShow from './routes/outing';
 import ThemeProvider from './providers/theme_provider';
 import OutingsProvider from './providers/outings_provider';
+import Swiper from './routes/swiper';
 
 ReactDOM.render(
 	<OutingsProvider>
@@ -28,6 +29,7 @@ ReactDOM.render(
 						/>
 						<Route path=":outingId" element={<OutingsShow />} />
 					</Route>
+					<Route path="swiper" element={<Swiper />} />
 					<Route
 						path="*"
 						element={
