@@ -1,11 +1,4 @@
-import { useState } from 'react';
-import { Button } from '@mui/material';
-
-import { useThemeContext } from '../contexts/theme_context';
-import StyledLink from './styled_link';
-import ThemeButton from './theme_button';
 import { useForm } from 'react-hook-form';
-import { saveJwt } from '../service/jwt';
 
 type FormData = {
   f_name: string;
@@ -15,7 +8,7 @@ type FormData = {
 	password_confirmation: string;
 };
 
-export function LoginForm() {
+export default function NewUser() {
 	const {
 		register,
 		handleSubmit,
@@ -44,43 +37,23 @@ export function LoginForm() {
 	});
 
 	return (
-		<form style={{ position: 'fixed', inset: 0, backgroundColor: 'grey', display: 'flex', flexDirection: 'column', width: '200px', }}onSubmit={onSubmit}>
+		<form onSubmit={onSubmit}>
+      <label htmlFor="f_name">First Name</label>
+			<input {...register('f_name')} />
+
+      <label htmlFor="l_name">Last Name</label>
+			<input {...register('l_name')} />
+
       <label htmlFor="email">Email</label>
 			<input {...register('email')} />
+
       <label htmlFor="password">Password</label>
 			<input {...register('password')} />
+
+			<label htmlFor="password_confirmation">Password Confirmation</label>
+			<input {...register('password_confirmation')} />
+
 			<input type="submit" />
 		</form>
 	);
 }
-
-
-
-
-
-
-
-
-const Header = () => {
-	const { isLight, theme } = useThemeContext();
-	const [formOpen, setFormOpen] = useState(false);
-
-	return (
-		<header className="app-header" style={{ ...theme, borderBottomWidth: '1px', borderBottomStyle: 'solid', borderBottomColor: theme.color }}>
-			<nav>
-				<ThemeButton />
-				<StyledLink to="/outings">Outings</StyledLink> |{' '}
-				<StyledLink to="/expenses">Expenses</StyledLink> |{' '}
-				<StyledLink to="/swiper">Swiper</StyledLink> |{' '}
-				<StyledLink to="/new_outing">New Outing</StyledLink> |{' '}
-				<StyledLink to="/new_user">New User</StyledLink>
-				<StyledLink to="/users">Users</StyledLink>
-				<Button onClick={() => setFormOpen(!formOpen)}>Log in</Button>
-			</nav>
-
-			{formOpen && <LoginForm/>}
-		</header>
-	);
-};
-
-export default Header;
